@@ -15,6 +15,11 @@ class Teams extends AbstractApi
     {
         return $this->get('orgs/'.rawurlencode($organization).'/teams');
     }
+  
+    public function allteams($organization, array $params = array())
+    {
+        return $this->get('orgs/'.rawurlencode($organization).'/teams', array_merge(array('start_page' => 1), $params));
+    }
 
     public function create($organization, array $params)
     {
@@ -57,6 +62,11 @@ class Teams extends AbstractApi
     {
         return $this->get('teams/'.rawurlencode($team).'/members');
     }
+    
+    public function teammembers($team, array $params = array())
+    {
+        return $this->get('teams/'.rawurlencode($team).'/members', array_merge(array('start_page' => 1), $params));
+    }
 
     public function check($team, $username)
     {
@@ -73,9 +83,34 @@ class Teams extends AbstractApi
         return $this->delete('teams/'.rawurlencode($team).'/members/'.rawurlencode($username));
     }
 
+    //Added new function to check user membership
+    public function checkMembership($team, $username)
+    {
+        return $this->get('teams/'.rawurlencode($team).'/memberships/'.rawurlencode($username));
+    }
+    
+    //Added new function to add user membership
+    public function addMembership($team, $username)
+    {
+        return $this->put('teams/'.rawurlencode($team).'/memberships/'.rawurlencode($username));
+    }
+
+    //Added new function to remove user membership
+    public function removeMembership($team, $username)
+    {
+        return $this->delete('teams/'.rawurlencode($team).'/memberships/'.rawurlencode($username));
+    }
+    
+    
+    
     public function repositories($team)
     {
         return $this->get('teams/'.rawurlencode($team).'/repos');
+    }
+    
+    public function allrepositories($team, array $params = array())
+    {
+        return $this->get('teams/'.rawurlencode($team).'/repos', array_merge(array('start_page' => 1), $params));
     }
 
     public function repository($team, $username, $repository)

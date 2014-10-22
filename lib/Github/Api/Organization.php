@@ -47,6 +47,11 @@ class Organization extends AbstractApi
             'type' => $type
         ));
     }
+    
+    public function allrepositories($organization, array $params)
+    {
+        return $this->get('orgs/'.rawurlencode($organization).'/repos', $params);
+    }
 
     /**
      * @return Members

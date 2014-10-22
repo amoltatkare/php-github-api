@@ -26,6 +26,10 @@ class Members extends AbstractApi
         return $this->get($path, $parameters);
     }
 
+  public function allmembers($organization, array $params = array()) {
+    return $this->get('orgs/' . rawurlencode($organization) . '/members', array_merge(array('start_page' => 1), $params));
+  }
+
     public function show($organization, $username)
     {
         return $this->get('orgs/'.rawurlencode($organization).'/members/'.rawurlencode($username));
